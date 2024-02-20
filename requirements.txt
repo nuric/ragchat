@@ -1,0 +1,6 @@
+gradio
+langchain
+
+pdfminer.six
+sentence-transformers
+wikipedia
