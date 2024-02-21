@@ -14,13 +14,24 @@ sample_embedding = embeddings.embed_documents(["Hello World"])
 vector_size = len(sample_embedding[0])
 
 DB = SemaDB("ragchat", vector_size, embeddings, DistanceStrategy.COSINE) 
-PROMPT = """Answer the question based only on the following context.
+# PROMPT = """Answer the question based only on the following context. Be concise and informative.
+# Context:
+# {context}
+
+# Question: {question}
+# Answer:"""
+PROMPT= """<|im_start|>system
+You are Sema, a helpful AI assistant that answers questions based on given context.<|im_end|>
+<|im_start|>user
+Answer the question based only on the following context. Be concise.
 Context:
 {context}
 
-Question: {question}
-"""
-LLM = Ollama(model="llama2")
+Question: {question}<|im_end|>
+<|im_start|>assistant"""
+
+# LLM = Ollama(model="llama2")
+LLM = Ollama(model="dolphin-phi")
 
 def set_global_api_key(api_key):
     """Set the global API Key for SemaDB."""
